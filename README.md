@@ -6,6 +6,23 @@
 - 多线程调度（主线程/子线程/并发多线程）
 - 体积小/方法数量少（约30kb/150）
 
+## 引用 Gradle
+&emsp;&emsp;添加JitPack仓库到你的项目：
+```
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+	}
+}
+```
+&emsp;&emsp;添加引用：
+```
+dependencies {
+     compile 'com.github.maxwell-nc:ReactiveLite:1.0'
+}
+```
+
 
 ## 用法 Usage
 
@@ -25,25 +42,7 @@ Publisher.just("test.png")
 
 ## 支持的操作符
 
-**创建操作符：**
-- empty
-- error
-- just：可变参数
-- from：可迭代数据
-- timer：定时器数据
-
-**转换操作符：**
-- map：转换操作
-- buffer：缓存操作
-- select：筛选操作
-
-**处理操作符：**
-- retry：重试
-- errorReturn：错误处理返回
-
-**调度操作符：**
-- subscribeOn：订阅调度
-- observeOn：观察调度
+&emsp;&emsp;具体内容请参考 [Wiki部分](https://github.com/maxwell-nc/ReactiveLite/wiki) 
 
 ## 进阶 Advance
 
