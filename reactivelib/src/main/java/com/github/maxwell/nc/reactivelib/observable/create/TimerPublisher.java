@@ -81,7 +81,7 @@ public class TimerPublisher extends Publisher<Long> {
                 return;
             }
 
-            if (!cancelled) {
+            if (cancelled) {
                 actual.onComplete();
             }
         }
