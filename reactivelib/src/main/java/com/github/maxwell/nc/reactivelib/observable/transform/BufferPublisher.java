@@ -55,32 +55,36 @@ public class BufferPublisher<T> extends Publisher<List<T>> {
         @Override
         public void onNext(T t) {
             try {
-                if (!subscription.isCancelled()) {
-                    int size = tempList.size();
-                    if (size < bufferSize) {
-                        tempList.add(t);
-                    } else if (size == bufferSize) {
-                        actual.onNext(tempList);
-                        tempList = null;
-                        //用新的缓存
-                        tempList = new ArrayList<>(bufferSize);
-                        tempList.add(t);
-                    }
+                if (subscription != null && subscription.isCancelled()) {
+                    return;
+                }
+                int size = tempList.size();
+                if (size < bufferSize) {
+                    tempList.add(t);
+                } else if (size == bufferSize) {
+                    actual.onNext(tempList);
+                    tempList = null;
+                    //用新的缓存
+                    tempList = new ArrayList<>(bufferSize);
+                    tempList.add(t);
                 }
             } catch (Exception e) {
-                subscription.cancel();
+                if (subscription != null) {
+                    subscription.cancel();
+                }
                 onError(e);
             }
         }
 
         @Override
         public void onComplete() {
-            if (!subscription.isCancelled()) {
-                if (tempList.size() > 0) {
-                    actual.onNext(tempList);
-                }
-                actual.onComplete();
+            if (subscription != null && subscription.isCancelled()) {
+                return;
             }
+            if (tempList.size() > 0) {
+                actual.onNext(tempList);
+            }
+            actual.onComplete();
         }
 
         @Override

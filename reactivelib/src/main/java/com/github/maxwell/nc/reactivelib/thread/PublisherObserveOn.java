@@ -48,16 +48,17 @@ public class PublisherObserveOn<T> extends Publisher<T> {
 
         @Override
         public void onNext(final T t) {
-            if (flowSubscription.isCancelled()) {
+            if (flowSubscription != null && flowSubscription.isCancelled()) {
                 return;
             }
             schedulers.schedule(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        if (!flowSubscription.isCancelled()) {
-                            actual.onNext(t);
+                        if (flowSubscription != null && flowSubscription.isCancelled()) {
+                            return;
                         }
+                        actual.onNext(t);
                     } catch (Exception e) {
                         flowSubscription.cancel();
                         onError(e);
@@ -71,9 +72,10 @@ public class PublisherObserveOn<T> extends Publisher<T> {
             schedulers.schedule(new Runnable() {
                 @Override
                 public void run() {
-                    if (!flowSubscription.isCancelled()) {
-                        actual.onComplete();
+                    if (flowSubscription != null && flowSubscription.isCancelled()) {
+                        return;
                     }
+                    actual.onComplete();
                 }
             });
         }

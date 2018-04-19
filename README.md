@@ -19,7 +19,7 @@ allprojects {
 &emsp;&emsp;添加引用：
 ```
 dependencies {
-     compile 'com.github.maxwell-nc:ReactiveLite:1.0'
+     compile 'com.github.maxwell-nc:ReactiveLite:1.1'
 }
 ```
 

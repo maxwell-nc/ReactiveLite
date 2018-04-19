@@ -32,11 +32,16 @@ public class LambdaSubscriber<T> implements Subscriber<T> {
 
     @Override
     public void onNext(T t) {
-        if (onNext != null && !subscription.isCancelled()) {
+        if (onNext != null) {
+            if (subscription != null && subscription.isCancelled()) {
+                return;
+            }
             try {
                 onNext.accept(t);
             } catch (Exception e) {
-                subscription.cancel();
+                if (subscription != null) {
+                    subscription.cancel();
+                }
                 onError(e);
             }
         }
@@ -44,7 +49,10 @@ public class LambdaSubscriber<T> implements Subscriber<T> {
 
     @Override
     public void onComplete() {
-        if (onComplete != null && !subscription.isCancelled()) {
+        if (onComplete != null) {
+            if (subscription != null && subscription.isCancelled()) {
+                return;
+            }
             try {
                 onComplete.run();
             } catch (Exception e) {

@@ -109,30 +109,36 @@ public class PublisherTest {
     @Test
     public void timer() throws Exception {
         final int[] count = {0};
-        final int request = 5;
+        final int request = 10;
+        final int cancelTime = 5;
         Publisher.timer(100)
-                .subscribe(new Subscriber<Long>() {
+                .subscribe(new FlowSubscriber<Long>() {
                     @Override
-                    public void onSubscribe(Subscription s) {
-                        s.request(request);
+                    protected long getRequestCount() {
+                        return request;
                     }
 
                     @Override
                     public void onNext(Long item) {
-                        //0,1,2,3,4
+                        //0,1,2,3,4...
                         assertFalse(item >= request);
                         count[0]++;
+                        //test cancel task
+                        if (count[0] == cancelTime) {
+                            cancelTask();
+                        }
                     }
 
                     @Override
                     public void onComplete() {
-                        assertEquals(count[0], request);
+                        assertEquals(count[0], cancelTime);
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
                         fail();
                     }
+
                 });
     }
 

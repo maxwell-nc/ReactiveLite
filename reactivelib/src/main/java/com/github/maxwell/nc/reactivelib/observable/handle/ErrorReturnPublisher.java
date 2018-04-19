@@ -55,20 +55,24 @@ public class ErrorReturnPublisher<T> extends Publisher<T> {
         @Override
         public void onNext(T t) {
             try {
-                if (!subscription.isCancelled()) {
-                    actual.onNext(t);
+                if (subscription != null && subscription.isCancelled()) {
+                    return;
                 }
+                actual.onNext(t);
             } catch (Exception e) {
-                subscription.cancel();
+                if (subscription != null) {
+                    subscription.cancel();
+                }
                 onError(e);
             }
         }
 
         @Override
         public void onComplete() {
-            if (!subscription.isCancelled()) {
-                actual.onComplete();
+            if (subscription != null && subscription.isCancelled()) {
+                return;
             }
+            actual.onComplete();
         }
 
         @Override
