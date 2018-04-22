@@ -2,39 +2,39 @@ package com.github.maxwell.nc.reactivelib.thread;
 
 import com.github.maxwell.nc.reactivelib.Publisher;
 import com.github.maxwell.nc.reactivelib.Subscriber;
-import com.github.maxwell.nc.reactivelib.scheduler.Schedulers;
+import com.github.maxwell.nc.reactivelib.scheduler.Scheduler;
 import com.github.maxwell.nc.reactivelib.subscription.FlowSubscription;
 import com.github.maxwell.nc.reactivelib.subscription.Subscription;
 
 /**
  * 观察者执行的线程控制的生产者<br/>
  * 指定特定调度器来控制观察者回调中onNext、onComplete和onError回调执行的线程<br/>
- * 通过操作符{@link Publisher#observeOn(Schedulers)}转换生产者
+ * 通过操作符{@link Publisher#observeOn(Scheduler)}转换生产者
  */
 public class PublisherObserveOn<T> extends Publisher<T> {
 
     private final Publisher<T> source;
-    private final Schedulers schedulers;
+    private final Scheduler scheduler;
 
-    public PublisherObserveOn(Publisher<T> source, Schedulers schedulers) {
+    public PublisherObserveOn(Publisher<T> source, Scheduler scheduler) {
         this.source = source;
-        this.schedulers = schedulers;
+        this.scheduler = scheduler;
     }
 
     @Override
     protected void subscribeActual(Subscriber<T> subscriber) {
-        source.subscribe(new ObserveOnSubscriber<>(subscriber, schedulers));
+        source.subscribe(new ObserveOnSubscriber<>(subscriber, scheduler));
     }
 
     private static final class ObserveOnSubscriber<T> implements Subscriber<T> {
 
         private final Subscriber<T> actual;
-        private final Schedulers schedulers;
+        private final Scheduler scheduler;
         private FlowSubscription flowSubscription;
 
-        public ObserveOnSubscriber(Subscriber<T> subscriber, Schedulers schedulers) {
+        public ObserveOnSubscriber(Subscriber<T> subscriber, Scheduler scheduler) {
             actual = subscriber;
-            this.schedulers = schedulers;
+            this.scheduler = scheduler;
         }
 
         @Override
@@ -51,7 +51,7 @@ public class PublisherObserveOn<T> extends Publisher<T> {
             if (flowSubscription != null && flowSubscription.isCancelled()) {
                 return;
             }
-            schedulers.schedule(new Runnable() {
+            scheduler.schedule(new Runnable() {
                 @Override
                 public void run() {
                     try {
@@ -69,7 +69,7 @@ public class PublisherObserveOn<T> extends Publisher<T> {
 
         @Override
         public void onComplete() {
-            schedulers.schedule(new Runnable() {
+            scheduler.schedule(new Runnable() {
                 @Override
                 public void run() {
                     if (flowSubscription != null && flowSubscription.isCancelled()) {
@@ -82,7 +82,7 @@ public class PublisherObserveOn<T> extends Publisher<T> {
 
         @Override
         public void onError(final Throwable throwable) {
-            schedulers.schedule(new Runnable() {
+            scheduler.schedule(new Runnable() {
                 @Override
                 public void run() {
                     actual.onError(throwable);

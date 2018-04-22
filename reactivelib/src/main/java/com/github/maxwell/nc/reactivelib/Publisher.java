@@ -14,6 +14,7 @@ import com.github.maxwell.nc.reactivelib.observable.handle.RetryPublisher;
 import com.github.maxwell.nc.reactivelib.observable.transform.BufferPublisher;
 import com.github.maxwell.nc.reactivelib.observable.transform.MapPublisher;
 import com.github.maxwell.nc.reactivelib.observable.transform.SelectPublisher;
+import com.github.maxwell.nc.reactivelib.scheduler.Scheduler;
 import com.github.maxwell.nc.reactivelib.scheduler.Schedulers;
 import com.github.maxwell.nc.reactivelib.thread.PublisherObserveOn;
 import com.github.maxwell.nc.reactivelib.thread.PublisherSubscribeOn;
@@ -84,14 +85,14 @@ public abstract class Publisher<T> {
      * 创建：定时器数据生产者
      *
      * @param interval   间隔毫秒（必须>0）
-     * @param schedulers 定时器运行线程调度器
+     * @param scheduler 定时器运行线程调度器
      * @see TimerPublisher
      */
-    public static Publisher<Long> timer(long interval, Schedulers schedulers) {
+    public static Publisher<Long> timer(long interval, Scheduler scheduler) {
         if (interval <= 0) {
             throw new IndexOutOfBoundsException("interval is out of bounds!");
         }
-        return new TimerPublisher(interval, schedulers);
+        return new TimerPublisher(interval, scheduler);
     }
 
     /**
@@ -163,27 +164,27 @@ public abstract class Publisher<T> {
     /**
      * 调度：订阅操作执行线程调度的生产者
      *
-     * @param schedulers 调度器，可以从{@link Schedulers}创建
+     * @param scheduler 调度器，可以从{@link Schedulers}创建
      * @see PublisherSubscribeOn
      */
-    public Publisher<T> subscribeOn(Schedulers schedulers) {
-        if (schedulers == null) {
+    public Publisher<T> subscribeOn(Scheduler scheduler) {
+        if (scheduler == null) {
             return this;
         }
-        return new PublisherSubscribeOn<>(this, schedulers);
+        return new PublisherSubscribeOn<>(this, scheduler);
     }
 
     /**
      * 调度：观察者执行的线程控制的生产者
      *
-     * @param schedulers 调度器，可以从{@link Schedulers}创建
+     * @param scheduler 调度器，可以从{@link Schedulers}创建
      * @see PublisherObserveOn
      */
-    public Publisher<T> observeOn(Schedulers schedulers) {
-        if (schedulers == null) {
+    public Publisher<T> observeOn(Scheduler scheduler) {
+        if (scheduler == null) {
             return this;
         }
-        return new PublisherObserveOn<>(this, schedulers);
+        return new PublisherObserveOn<>(this, scheduler);
     }
 
 

@@ -6,7 +6,7 @@ import android.os.Looper;
 /**
  * 主线程调度器
  */
-public class MainThreadSchedulers extends Schedulers {
+public class MainThreadScheduler implements Scheduler {
 
     private static final Handler mainHandler = new Handler(Looper.getMainLooper());
 

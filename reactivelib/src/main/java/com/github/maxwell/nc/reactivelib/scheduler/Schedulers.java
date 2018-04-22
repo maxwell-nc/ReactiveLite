@@ -5,44 +5,60 @@ import java.util.concurrent.Executor;
 /**
  * 调度器管理器
  */
-public abstract class Schedulers {
+public final class Schedulers {
+
+    private static SingleThreadScheduler singleThreadScheduler;
+    private static NewThreadScheduler newThreadScheduler;
+    private static MainThreadScheduler mainThreadScheduler;
+    private static ParallelScheduler parallelScheduler;
+
+    /**
+     * 单一子线程调度器
+     */
+    public static synchronized Scheduler single() {
+        if (singleThreadScheduler == null) {
+            singleThreadScheduler = new SingleThreadScheduler();
+        }
+        return singleThreadScheduler;
+    }
 
     /**
      * 创建子线程调度器
      */
-    public static Schedulers newThread() {
-        return new NewThreadSchedulers();
+    public static Scheduler newThread() {
+        if (newThreadScheduler == null) {
+            newThreadScheduler = new NewThreadScheduler();
+        }
+        //虽然是单一的调度器，内部实现创建线程
+        return newThreadScheduler;
     }
 
     /**
      * 创建UI线程调度器（同主线程）
      */
-    public static Schedulers uiThread() {
+    public static Scheduler uiThread() {
         return mainThread();
     }
 
     /**
      * 创建主线程调度器
      */
-    public static Schedulers mainThread() {
-        return new MainThreadSchedulers();
+    public static Scheduler mainThread() {
+        if (mainThreadScheduler == null) {
+            mainThreadScheduler = new MainThreadScheduler();
+        }
+        return mainThreadScheduler;
     }
 
     /**
      * 创建并行调度器<br/>
      * 并行上限为CPU处理器数量
      */
-    public static Schedulers parallel() {
-        return parallel(Runtime.getRuntime().availableProcessors());
-    }
-
-    /**
-     * 创建指定数量的并行调度器
-     *
-     * @param poolSize 线程池大小，若<=0则为无限制，若为1则为单线程
-     */
-    public static Schedulers parallel(int poolSize) {
-        return new ParallelSchedulers(poolSize);
+    public static Scheduler parallel() {
+        if (parallelScheduler == null) {
+            parallelScheduler = new ParallelScheduler(Runtime.getRuntime().availableProcessors());
+        }
+        return parallelScheduler;
     }
 
     /**
@@ -50,15 +66,13 @@ public abstract class Schedulers {
      *
      * @param executor 指定的Executor
      */
-    public static Schedulers form(Executor executor) {
-        return new ParallelSchedulers(executor);
+    public static Scheduler form(final Executor executor) {
+        return new Scheduler() {
+            @Override
+            public void schedule(Runnable runnable) {
+                executor.execute(runnable);
+            }
+        };
     }
-
-    /**
-     * 实际调度的方法
-     *
-     * @param runnable 需要执行的操作
-     */
-    public abstract void schedule(Runnable runnable);
 
 }

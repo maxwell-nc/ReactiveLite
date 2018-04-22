@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 
 
 /**
- * 生产者测试类
+ * 单元测试类
  */
 public class PublisherTest {
 
