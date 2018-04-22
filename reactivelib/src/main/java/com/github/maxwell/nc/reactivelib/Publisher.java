@@ -74,7 +74,7 @@ public abstract class Publisher<T> {
     /**
      * 创建：定时器数据生产者，定时器线程在运行所在的线程
      *
-     * @param interval 间隔毫秒（必须>0）
+     * @param interval 间隔毫秒（必须大于0）
      * @see TimerPublisher
      */
     public static Publisher<Long> timer(long interval) {
@@ -84,7 +84,7 @@ public abstract class Publisher<T> {
     /**
      * 创建：定时器数据生产者
      *
-     * @param interval   间隔毫秒（必须>0）
+     * @param interval   间隔毫秒（必须大于0）
      * @param scheduler 定时器运行线程调度器
      * @see TimerPublisher
      */
@@ -112,7 +112,7 @@ public abstract class Publisher<T> {
     /**
      * 转换：缓存数据的生产者，缓存一定数量的数据然后合并为List发送
      *
-     * @param bufferSize 缓存数量（必须>0）
+     * @param bufferSize 缓存数量（必须大于0）
      * @see BufferPublisher
      */
     public Publisher<List<T>> buffer(int bufferSize) {
@@ -138,7 +138,7 @@ public abstract class Publisher<T> {
     /**
      * 处理：遇到错误(异常）重试的生产者
      *
-     * @param times 重试次数（必须>0）
+     * @param times 重试次数（必须大于0）
      * @see RetryPublisher
      */
     public Publisher<T> retry(int times) {

@@ -6,7 +6,7 @@ import com.github.maxwell.nc.reactivelib.subscription.FlowSubscription;
 import com.github.maxwell.nc.reactivelib.subscription.Subscription;
 
 /**
- * Lambda表达式订阅者<br/>
+ * Lambda表达式订阅者<br>
  */
 public class LambdaSubscriber<T> implements Subscriber<T> {
 

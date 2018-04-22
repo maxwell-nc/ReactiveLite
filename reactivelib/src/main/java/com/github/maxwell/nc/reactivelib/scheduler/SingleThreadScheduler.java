@@ -4,7 +4,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 /**
- * 单一子线程复用调度器<br/>
+ * 单一子线程复用调度器<br>
  */
 public class SingleThreadScheduler implements Scheduler {
 

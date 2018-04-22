@@ -3,10 +3,10 @@ package com.github.maxwell.nc.reactivelib;
 import com.github.maxwell.nc.reactivelib.subscription.Subscription;
 
 /**
- * 订阅者<br/>
- * 执行回调的顺序可能的顺序如下：<br/>
- * onSubscribe(request方法前)->onNext->onComplete<br/>
- * onSubscribe(request方法前)->onNext->onError<br/>
+ * 订阅者<br>
+ * 执行回调的顺序可能的顺序如下：<br>
+ * onSubscribe(request方法前)-onNext-onComplete<br>
+ * onSubscribe(request方法前)-onNext-onError<br>
  *
  * @param <T> 订阅的数据类型
  */

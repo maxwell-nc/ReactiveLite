@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 缓存数据的生产者<br/>
- * 每次调用onNext事件时，先缓存到List中，若缓存已满则输出结果，若调用onComplete事件还存在缓存没输出则一并输出<br/>
- * 通过制定{@link #bufferSize}来指定每次缓存的数据数量<br/>
- * 此方法使用ArrayList作为缓存列表，注意若数据量大，而{@link #bufferSize}设置值过小，则会创建大量的ArrayList<br/>
+ * 缓存数据的生产者<br>
+ * 每次调用onNext事件时，先缓存到List中，若缓存已满则输出结果，若调用onComplete事件还存在缓存没输出则一并输出<br>
+ * 通过制定{@link #bufferSize}来指定每次缓存的数据数量<br>
+ * 此方法使用ArrayList作为缓存列表，注意若数据量大，而{@link #bufferSize}设置值过小，则会创建大量的ArrayList<br>
  * 此生产者可以通过{@link Publisher#buffer(int)}转换
  */
 public class BufferPublisher<T> extends Publisher<List<T>> {

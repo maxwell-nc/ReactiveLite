@@ -7,8 +7,8 @@ import com.github.maxwell.nc.reactivelib.subscription.FlowSubscription;
 import com.github.maxwell.nc.reactivelib.subscription.Subscription;
 
 /**
- * 筛选数据的生产者<br/>
- * 通过设定的{@link #predicate}来筛选数据，若{@link Predicate#test(Object)}方法返回true则调用onNext事件，否则抛弃元素<br/>
+ * 筛选数据的生产者<br>
+ * 通过设定的{@link #predicate}来筛选数据，若{@link Predicate#test(Object)}方法返回true则调用onNext事件，否则抛弃元素<br>
  * 可以通过{@link Publisher#select(Predicate)}操作符来转换
  */
 public class SelectPublisher<T> extends Publisher<T> {

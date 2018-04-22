@@ -6,9 +6,9 @@ import com.github.maxwell.nc.reactivelib.subscription.FlowSubscription;
 
 
 /**
- * 空的生产者<br/>
- * 直接执行onComplete()回调<br/>
- * 可以通过{@link Publisher#empty()}创建<br/>
+ * 空的生产者<br>
+ * 直接执行onComplete()回调<br>
+ * 可以通过{@link Publisher#empty()}创建<br>
  */
 public class EmptyPublisher<T> extends Publisher<T> {
 

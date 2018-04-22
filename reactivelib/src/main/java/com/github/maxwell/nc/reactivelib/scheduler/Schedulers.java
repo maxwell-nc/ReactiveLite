@@ -51,7 +51,7 @@ public final class Schedulers {
     }
 
     /**
-     * 创建并行调度器<br/>
+     * 创建并行调度器<br>
      * 并行上限为CPU处理器数量
      */
     public static Scheduler parallel() {

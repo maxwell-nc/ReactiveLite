@@ -1,7 +1,7 @@
 package com.github.maxwell.nc.reactivelib.subscription;
 
 /**
- * 带取消的订阅信息<br/>
+ * 带取消的订阅信息<br>
  */
 public abstract class FlowSubscription implements Subscription {
 

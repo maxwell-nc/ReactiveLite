@@ -7,8 +7,8 @@ import com.github.maxwell.nc.reactivelib.subscription.FlowSubscription;
 import com.github.maxwell.nc.reactivelib.subscription.Subscription;
 
 /**
- * 变换数据的生产者<br/>
- * 通过指定{@link #function}来设置变换数据的回调，把T类型原数据转换成R类型的新数据<br/>
+ * 变换数据的生产者<br>
+ * 通过指定{@link #function}来设置变换数据的回调，把T类型原数据转换成R类型的新数据<br>
  * 可以通过{@link Publisher#map(Function)}来转换
  */
 public class MapPublisher<T, R> extends Publisher<R> {

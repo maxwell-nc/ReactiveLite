@@ -9,8 +9,8 @@ import java.util.Iterator;
 
 
 /**
- * 可迭代的数据生产者<br/>
- * 可以通过{@link Publisher#from(Iterable)}创建<br/>
+ * 可迭代的数据生产者<br>
+ * 可以通过{@link Publisher#from(Iterable)}创建<br>
  */
 public class IterablePublisher<T> extends Publisher<T> {
 

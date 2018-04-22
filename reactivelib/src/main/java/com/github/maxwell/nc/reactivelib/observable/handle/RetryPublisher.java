@@ -6,10 +6,10 @@ import com.github.maxwell.nc.reactivelib.subscription.FlowSubscription;
 import com.github.maxwell.nc.reactivelib.subscription.Subscription;
 
 /**
- * 遇到错误重试的生产者<br/>
- * 若遇到异常，则会重新调用订阅操作，从头开始请求数据（包括重新走onSubscribe回调）<br/>
- * 特别注意：此生产者在多线程并发情况下可能无法执行重试操作<br/>
- * 通过指定{@link #retryTimes}为重试次数，若重试次数用尽则不会再重试，保留最后一次的状态<br/>
+ * 遇到错误重试的生产者<br>
+ * 若遇到异常，则会重新调用订阅操作，从头开始请求数据（包括重新走onSubscribe回调）<br>
+ * 特别注意：此生产者在多线程并发情况下可能无法执行重试操作<br>
+ * 通过指定{@link #retryTimes}为重试次数，若重试次数用尽则不会再重试，保留最后一次的状态<br>
  * 此生产者可以通过{@link Publisher#retry(int)}操作符来实现转换
  */
 public class RetryPublisher<T> extends Publisher<T> {

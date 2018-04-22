@@ -7,8 +7,8 @@ import com.github.maxwell.nc.reactivelib.subscription.FlowSubscription;
 import com.github.maxwell.nc.reactivelib.subscription.Subscription;
 
 /**
- * 观察者执行的线程控制的生产者<br/>
- * 指定特定调度器来控制观察者回调中onNext、onComplete和onError回调执行的线程<br/>
+ * 观察者执行的线程控制的生产者<br>
+ * 指定特定调度器来控制观察者回调中onNext、onComplete和onError回调执行的线程<br>
  * 通过操作符{@link Publisher#observeOn(Scheduler)}转换生产者
  */
 public class PublisherObserveOn<T> extends Publisher<T> {

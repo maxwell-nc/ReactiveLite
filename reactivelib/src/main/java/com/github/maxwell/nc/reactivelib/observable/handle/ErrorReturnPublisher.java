@@ -7,9 +7,9 @@ import com.github.maxwell.nc.reactivelib.subscription.FlowSubscription;
 import com.github.maxwell.nc.reactivelib.subscription.Subscription;
 
 /**
- * 错误时候返回特定数据的生产者<br/>
- * 通过指定特定数据，在遇到异常时先调用onNext回调发送指定数据，<b>再执行onComplete回调</b><br/>
- * 若果指定的{@link #function}操作存在异常，则直接调用onError操作，不再发送特定数据<br/>
+ * 错误时候返回特定数据的生产者<br>
+ * 通过指定特定数据，在遇到异常时先调用onNext回调发送指定数据，<b>再执行onComplete回调</b><br>
+ * 若果指定的{@link #function}操作存在异常，则直接调用onError操作，不再发送特定数据<br>
  * 可以通过{@link Publisher#errorReturn(Function)}操作符转换出此生产者
  */
 public class ErrorReturnPublisher<T> extends Publisher<T> {

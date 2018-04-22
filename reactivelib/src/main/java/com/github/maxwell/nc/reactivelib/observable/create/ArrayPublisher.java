@@ -7,8 +7,8 @@ import com.github.maxwell.nc.reactivelib.subscription.FlowSubscription;
 
 
 /**
- * 数组类型的生产者<br/>
- * 可以通过{@link Publisher#just(Object[])}方法创建<br/>
+ * 数组类型的生产者<br>
+ * 可以通过{@link Publisher#just(Object[])}方法创建<br>
  */
 public class ArrayPublisher<T> extends Publisher<T> {
 
