@@ -8,20 +8,12 @@
 - 多线程调度（主线程/子线程/并发多线程）
 - 体积小/方法数量少（约30kb/150）
 
-## 引用 Gradle
-&emsp;&emsp;添加JitPack仓库到你的项目：
-```
-allprojects {
-	repositories {
-		...
-		maven { url 'https://jitpack.io' }
-	}
-}
-```
-&emsp;&emsp;添加引用：
+## 依赖 Gradle
+
+目前部署1.3版本部署在JCenter，直接修改build.gradle添加引用：
 ```
 dependencies {
-     compile 'com.github.maxwell-nc:ReactiveLite:1.3'
+     compile 'com.maxwell.nc:ReactiveLite:1.3'
 }
 ```
 
