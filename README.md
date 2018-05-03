@@ -1,6 +1,8 @@
 # ReactiveLite
 &emsp;&emsp;一个轻量级的Android响应式编程库，如果你想使用类似RxJava(RxAndroid)的响应式编程，但是又觉得其体积臃肿、操作符过多或者学习成本高的话，本库十分适合你。
 
+&emsp;&emsp;想要使用Retrofit+ReactiveLite方式开发，可以使用已经写好的CallAdapter库[RxLiteAdapter](https://github.com/maxwell-nc/RxLiteAdapter)
+
 &emsp;&emsp;另外：基于此库开发出轻量级的事件总线[TinyBus](https://github.com/maxwell-nc/TinyBus)
 
 ## 特点 Feature
